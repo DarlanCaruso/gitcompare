@@ -26,6 +26,8 @@ export const Form = styled.form`
     background: white;
     color: #444;
     border-radius: 3px 0 0 3px;
+
+    border: ${props => (props.withError ? '2px solid #F00' : '0')};
   }
 
   button {
