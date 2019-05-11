@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Container, Repository } from './styles';
 
 const CompareList = ({ repositories }) => (
@@ -23,7 +24,7 @@ const CompareList = ({ repositories }) => (
             {repository.open_issues_count} <small>issues</small>
           </li>
           <li>
-            {repository.pushed_at} <small>last commit</small>
+            {moment(repository.pushed_at).fromNow()} <small>last commit</small>
           </li>
         </ul>
       </Repository>
