@@ -6,6 +6,7 @@ import logo from '../../assets/logo.png';
 
 export default class Main extends Component {
   state = {
+    loading: false,
     repositoryInput: '',
     repositories: [],
     repositoryError: false,
@@ -16,6 +17,9 @@ export default class Main extends Component {
     const { repositoryInput } = this.state;
 
     e.preventDefault();
+
+    this.setState({ loading: true });
+
     try {
       const response = await api.get(`/repos/${repositoryInput}`);
 
@@ -26,6 +30,8 @@ export default class Main extends Component {
       });
     } catch (err) {
       this.setState({ repositoryError: true });
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
@@ -33,6 +39,7 @@ export default class Main extends Component {
     const { repositories } = this.state;
     const { repositoryInput } = this.state;
     const { repositoryError } = this.state;
+    const { loading } = this.state;
 
     return (
       <Container>
@@ -46,7 +53,7 @@ export default class Main extends Component {
             value={repositoryInput}
             onChange={e => this.setState({ repositoryInput: e.target.value })}
           />
-          <button type="submit">+</button>
+          <button type="submit">{loading ? <i className="fa fa-spinner fa-pulse" /> : '+'}</button>
         </Form>
         <CompareList repositories={repositories} />
       </Container>
